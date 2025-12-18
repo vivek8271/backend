@@ -11,6 +11,7 @@ const QuickQuoteSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-export default mongoose.model.QuickQuoteForm ||
+export default mongoose.models.QuickQuoteForm ||
   mongoose.model("QuickQuoteForm", QuickQuoteSchema);
+
 
