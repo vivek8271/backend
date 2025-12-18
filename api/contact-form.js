@@ -1,5 +1,5 @@
-import { connectDB } from "../lib/db";
-import ContactForm from "../models/ContactForm";
+import { connectDB } from "../lib/db.js";
+import ContactForm from "../models/ContactForm.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -17,3 +17,4 @@ export default async function handler(req, res) {
     res.status(500).json({ success: false, message: "❌ Failed to save form" });
   }
 }
+
