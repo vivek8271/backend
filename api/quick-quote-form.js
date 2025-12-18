@@ -1,5 +1,5 @@
 import { connectDB } from "../lib/db.js";
-import QuickQuoteForm from "../model/QuickQuoteForm.js";
+import QuickQuoteForm from "../models/QuickQuoteForm.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     res.status(500).json({ success: false, message: "❌ Failed to save form" });
   }
 }
+
 
 
 
