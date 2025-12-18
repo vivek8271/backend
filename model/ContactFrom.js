@@ -9,5 +9,6 @@ const ContactFormSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-export default mongoose.models.ContactForm ||
+export default mongoose.model.ContactForm ||
   mongoose.model("ContactForm", ContactFormSchema);
+
