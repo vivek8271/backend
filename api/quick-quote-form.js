@@ -51,10 +51,11 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error("Quick quote error:", err);
     res.status(500).json({
-      success: false,
-      message: "❌ Failed to save quick quote",
-    });
+    success: false,
+    message: err.message,   // 👈 show real error
+  });
   }
 }
+
 
 
