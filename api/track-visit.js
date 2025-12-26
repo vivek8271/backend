@@ -12,10 +12,7 @@ const Visit =
   mongoose.models.Visit || mongoose.model("Visit", VisitSchema);
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).end();
-  }
-
+   // cors
    res.setHeader(
     "Access-Control-Allow-Origin",
     "https://aditienterprises.vercel.app"
