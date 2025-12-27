@@ -38,6 +38,7 @@ export default async function handler(req, res) {
       path: req.body.path,
       ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
       userAgent: req.headers["user-agent"]
+      
     });
 
     await visit.save();
