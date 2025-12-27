@@ -5,7 +5,7 @@ const VisitSchema = new mongoose.Schema({
   path: String,
   ip: String,
   userAgent: String,
-  timestamp: { type: Date, default: Date.toISOString() }
+  timestamp: { type: Date, default: Date.now }
 });
 
 const Visit =
