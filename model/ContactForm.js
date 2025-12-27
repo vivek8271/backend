@@ -6,11 +6,12 @@ const ContactFormSchema = new mongoose.Schema({
   email: String,
   address: String,
   message: String,
-  timestamp: { type: Date, default: Date.toISOString() },
+  timestamp: { type: Date, default: Date.now },
 });
 
 export default mongoose.models.ContactForm ||
   mongoose.model("ContactForm", ContactFormSchema);
+
 
 
 
