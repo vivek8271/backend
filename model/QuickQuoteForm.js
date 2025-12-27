@@ -8,11 +8,12 @@ const QuickQuoteSchema = new mongoose.Schema({
   quantity: String,
   address: String,
   message: String,
-  timestamp: { type: Date, default: Date.toISOString() },
+  timestamp: { type: Date, default: Date.now },
 });
 
 export default mongoose.models.QuickQuoteForm ||
   mongoose.model("QuickQuoteForm", QuickQuoteSchema);
+
 
 
 
