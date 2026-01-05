@@ -52,7 +52,7 @@ export default async function handler(req, res) {
       // ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
       // userAgent: req.headers["user-agent"]
       ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
-      browser: agent.browser,
+      browser: req.headers["user-agent"],
       os: agent.os,
       device: agent.isMobile ? "Mobile" : "Desktop",
       referrer: req.headers.referer || "Direct",
