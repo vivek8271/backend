@@ -1,7 +1,7 @@
 import { connectDB } from "../lib/db.js";
 import mongoose from "mongoose";
-const useragent = require("express-useragent");
-const { v4: uuidv4 } = require("uuid");
+import useragent from "express-useragent";
+import { v4 as uuidv4 } from "uuid";
 
 const VisitSchema = new mongoose.Schema({
 
