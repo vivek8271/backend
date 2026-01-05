@@ -2,11 +2,24 @@ import { connectDB } from "../lib/db.js";
 import mongoose from "mongoose";
 
 const VisitSchema = new mongoose.Schema({
-  path: String,
-  ip: String,
-  userAgent: String,
-  time : String,
-  timestamp: { type: Date, default: Date.now }
+
+   ip: String,
+  browser: String,
+  os: String,
+  device: String,
+  referrer: String,
+  url: String,
+  sessionId: String,
+  isReturning: Boolean,
+  visitedAt: {
+    type: Date,
+    default: Date.now
+  }
+  // path: String,
+  // ip: String,
+  // userAgent: String,
+  // time : String,
+  // timestamp: { type: Date, default: Date.now }
 });
 
 const Visit =
@@ -35,10 +48,17 @@ export default async function handler(req, res) {
     await connectDB();
 
     const visit = new Visit({
-      path: req.body.path,
+      // path: req.body.path,
+      // ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+      // userAgent: req.headers["user-agent"]
       ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
-      userAgent: req.headers["user-agent"]
-      
+      browser: agent.browser,
+      os: agent.os,
+      device: agent.isMobile ? "Mobile" : "Desktop",
+      referrer: req.headers.referer || "Direct",
+      url: req.originalUrl,
+      sessionId,
+      isReturning: !!req.headers.cookie
     });
 
     await visit.save();
