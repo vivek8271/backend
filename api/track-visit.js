@@ -1,5 +1,7 @@
 import { connectDB } from "../lib/db.js";
 import mongoose from "mongoose";
+const useragent = require("express-useragent");
+const { v4: uuidv4 } = require("uuid");
 
 const VisitSchema = new mongoose.Schema({
 
@@ -47,18 +49,30 @@ export default async function handler(req, res) {
   try {
     await connectDB();
 
+    const agent = useragent.parse(req.headers["user-agent"]);
+
+    let sessionId = req.cookies?.sessionId;
+
+    if (!sessionId) {
+      sessionId = uuidv4();
+      res.setHeader(
+        "Set-Cookie",
+        `sessionId=${sessionId}; Path=/; HttpOnly; SameSite=Lax`
+      );
+    }
+     
     const visit = new Visit({
       // path: req.body.path,
       // ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
       // userAgent: req.headers["user-agent"]
-      ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
-      browser: req.headers["user-agent"],
-      os: req.os,
-      device: req.isMobile ? "Mobile" : "Desktop",
+       ip: req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress,
+      browser: agent.browser,
+      os: agent.os,
+      device: agent.isMobile ? "Mobile" : "Desktop",
       referrer: req.headers.referer || "Direct",
       url: req.originalUrl,
-      sessionId,
-      isReturning: !!req.headers.cookie
+      sessionId: sessionId,
+      isReturning: !!req.cookies?.sessionId
     });
 
     await visit.save();
